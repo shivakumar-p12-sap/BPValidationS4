@@ -1,0 +1,33 @@
+service-values:
+  em-srv:
+    type: enterprise-messaging
+    instance: e45cfb04-7567-4006-971f-4c1e3cde00b6
+    key: emskey
+  destination-srv:
+    type: destination
+    instance: e6f7647c-3f1c-46d3-b6db-8c92e8825743
+    key: destinationkey
+secret-values:
+  destination-name:
+    name:
+      name: RegisteredoDataService
+      attachmentSrvApi: API_CV_ATTACHMENT_SRV
+      businessPartnerSrvApi: API_BUSINESS_PARTNER
+      businessObjectTypeName: BUS1006
+config-values:
+  amqp-service-config:
+    amqp:
+      incoming:
+        inp1:
+          sourceAddress: queue:refapps/bpems/abc/myqueue
+          sndSettleMode: 0
+          rcvSettleMode: 0
+          maxLinkCredit: 50
+    bind:
+      rules:
+        - filter:
+            incoming: inp1
+          action:
+            function: qrcodegenerator
+            failure: accept
+            content: application/json
